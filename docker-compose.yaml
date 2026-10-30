@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  bash_py:
+    build:
+      context: .
+      dockerfile: dockerfile/app.Dockerfile
+      network: host
+      args:
+        - http_proxy=${http_proxy}
+        - https_proxy=${https_proxy}
+        - http_proxy=${http_proxy}
+        - https_proxy=${https_proxy}
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    networks:
+      - backend_net
+
+networks:
+  backend_net:
+    driver: bridge
